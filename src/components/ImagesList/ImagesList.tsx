@@ -3,6 +3,8 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { fetchImages } from '../../store/action-creators/images';
 import { Image } from '../../types/oneImage';
+import OneCard from '../OneCard/OneCard';
+import s from './ImagesList.module.css';
 
 const ImagesList: FC = () => {
     const dispatch = useAppDispatch()
@@ -13,9 +15,9 @@ const ImagesList: FC = () => {
     }, [])
 
     return (
-        <div>
+        <div className={s.wrapper}>
             {images.map((image: Image) =>
-                <div>{image.id}</div>
+                <OneCard key={image.id} image={image} />
             )}
         </div>
     );
