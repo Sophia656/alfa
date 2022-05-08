@@ -25,3 +25,9 @@ export const filterImages = (filterImages: typeof Image[]) => {
         dispatch({type: ImagesActionTypes.FILTER_IMAGES, payload: filterImages})
     }
 }
+
+export const showOnlyLikedImages = (likedImages: typeof Image[]) => {
+    return (dispatch: Dispatch<ImagesAction>) => {
+        dispatch({type: ImagesActionTypes.SHOW_ONLY_LIKED_IMAGES, payload: likedImages})
+    }
+}

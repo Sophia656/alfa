@@ -1,18 +1,41 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, IconButton, Tooltip } from '@mui/material';
+import { CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
 import { Image } from '../../types/oneImage';
 import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 interface CardProps {
     image: Image,
-    handleDelete: (image: Image) => void
+    handleDelete: (image: Image) => void,
+    likedImages: Image[],
+    setLikedImages: (likeImages: Image[]) => void,
 }
 
-const OneCard: FC<CardProps> = ({image, handleDelete}) => {
+const OneCard: FC<CardProps> = ({image, handleDelete, likedImages, setLikedImages}) => {
+    // для подсвечивания иконки при клике
+    const [like, setLike] = useState(false)
+    // по клику ставим лайк
+    const handleLike = (image: Image) => {
+        image.like = !image.like
+        setLike(!like)
+    }
+    // и пушим в массив лайкнутых
+    useEffect(() => {
+        if (!like) {
+            likedImages.map((like: Image) => {
+                if (image.id === like.id) {
+                    return setLikedImages(likedImages.filter(i => i.id !== image.id))
+                }
+            })
+        } else {
+            setLikedImages([...likedImages, image])
+        }
+    }, [like])
+
     return (
         <Card variant='elevation' color='success' sx={{ 
         maxWidth: 300, 
@@ -35,11 +58,16 @@ const OneCard: FC<CardProps> = ({image, handleDelete}) => {
                     {image.id}
                     </Typography>
                 </CardContent>
-                <Tooltip title="Delete image?" placement="right-start">
-                    <IconButton>
-                        <DeleteIcon onClick={() => handleDelete(image)} />
+                <CardActions>
+                    <IconButton aria-label="add to favorites">
+                        <FavoriteIcon onClick={() => handleLike(image)} color={image.like ? 'success' : 'primary'} />
                     </IconButton>
-                </Tooltip>
+                    <Tooltip title="Delete image?" placement="right-start">
+                        <IconButton>
+                            <DeleteIcon onClick={() => handleDelete(image)} />
+                        </IconButton>
+                    </Tooltip>
+                </CardActions>
             </CardActionArea>
         </Card>
     );
