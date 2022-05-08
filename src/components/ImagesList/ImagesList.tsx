@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { fetchImages } from '../../store/action-creators/images';
+import { fetchImages, filterImages } from '../../store/action-creators/images';
 import { Image } from '../../types/oneImage';
 import OneCard from '../OneCard/OneCard';
 import s from './ImagesList.module.css';
@@ -15,6 +15,10 @@ const ImagesList: FC = () => {
         dispatch<any>(fetchImages())
     }, [])
 
+    const handleDelete = (current: Image) => {
+        dispatch<any>(filterImages(images.filter(image => image.id !== current.id)))
+    }
+
     return (
         <div className={s.wrapper}>
             {loading && 
@@ -24,7 +28,7 @@ const ImagesList: FC = () => {
             }
             {error && <Alert severity="error">{error}</Alert>}
             {images.map((image: Image) =>
-                <OneCard key={image.id} image={image} />
+                <OneCard key={image.id} image={image} handleDelete={handleDelete} />
             )}
         </div>
     );

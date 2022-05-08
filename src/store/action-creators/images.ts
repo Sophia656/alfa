@@ -19,3 +19,9 @@ export const fetchImages = () => {
         }
     }
 }
+
+export const filterImages = (filterImages: typeof Image[]) => {
+    return (dispatch: Dispatch<ImagesAction>) => {
+        dispatch({type: ImagesActionTypes.FILTER_IMAGES, payload: filterImages})
+    }
+}

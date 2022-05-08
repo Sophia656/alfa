@@ -7,7 +7,8 @@ export interface ImagesState {
 export enum ImagesActionTypes {
     FETCH_IMAGES = 'FETCH_IMAGES',
     FETCH_IMAGES_SUCCESS = 'FETCH_IMAGES_SUCCESS',
-    FETCH_IMAGES_ERROR = 'FETCH_IMAGES_ERROR'
+    FETCH_IMAGES_ERROR = 'FETCH_IMAGES_ERROR',
+    FILTER_IMAGES = 'FILTER_IMAGES'
 }
 
 interface FetchImagesAction {
@@ -24,4 +25,9 @@ interface FetchImagesErrorAction {
     payload: string
 }
 
-export type ImagesAction = FetchImagesAction | FetchImagesSuccessAction | FetchImagesErrorAction
+interface FilterImagesAction {
+    type: ImagesActionTypes.FILTER_IMAGES,
+    payload: any[]
+}
+
+export type ImagesAction = FetchImagesAction | FetchImagesSuccessAction | FetchImagesErrorAction | FilterImagesAction

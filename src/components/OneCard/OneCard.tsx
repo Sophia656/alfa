@@ -3,14 +3,16 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea, IconButton, Tooltip } from '@mui/material';
 import { Image } from '../../types/oneImage';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface CardProps {
-    image: Image
+    image: Image,
+    handleDelete: (image: Image) => void
 }
 
-const OneCard: FC<CardProps> = ({image}) => {
+const OneCard: FC<CardProps> = ({image, handleDelete}) => {
     return (
         <Card variant='elevation' color='success' sx={{ 
         maxWidth: 300, 
@@ -33,6 +35,11 @@ const OneCard: FC<CardProps> = ({image}) => {
                     {image.id}
                     </Typography>
                 </CardContent>
+                <Tooltip title="Delete image?" placement="right-start">
+                    <IconButton>
+                        <DeleteIcon onClick={() => handleDelete(image)} />
+                    </IconButton>
+                </Tooltip>
             </CardActionArea>
         </Card>
     );
