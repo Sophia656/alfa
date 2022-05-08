@@ -19,6 +19,8 @@ export const imagesReducer = (state = initialState, action: ImagesAction): Image
             return {loading: false, error: null, images: action.payload}
         case ImagesActionTypes.SHOW_ONLY_LIKED_IMAGES:
             return {loading: false, error: null, images: action.payload}
+        case ImagesActionTypes.RETURN_IMAGES:
+            return {loading: false, error: null, images: action.payload}
         default:
             return state
     }

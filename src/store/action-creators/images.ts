@@ -31,3 +31,9 @@ export const showOnlyLikedImages = (likedImages: typeof Image[]) => {
         dispatch({type: ImagesActionTypes.SHOW_ONLY_LIKED_IMAGES, payload: likedImages})
     }
 }
+
+export const returnImages = (likedImages: typeof Image[]) => {
+    return (dispatch: Dispatch<ImagesAction>) => {
+        dispatch({type: ImagesActionTypes.RETURN_IMAGES, payload: likedImages})
+    }
+}

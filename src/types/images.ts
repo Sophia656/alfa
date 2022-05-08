@@ -9,7 +9,8 @@ export enum ImagesActionTypes {
     FETCH_IMAGES_SUCCESS = 'FETCH_IMAGES_SUCCESS',
     FETCH_IMAGES_ERROR = 'FETCH_IMAGES_ERROR',
     FILTER_IMAGES = 'FILTER_IMAGES',
-    SHOW_ONLY_LIKED_IMAGES = 'SHOW_ONLY_LIKED_IMAGES'
+    SHOW_ONLY_LIKED_IMAGES = 'SHOW_ONLY_LIKED_IMAGES',
+    RETURN_IMAGES = 'RETURN_IMAGES'
 }
 
 interface FetchImagesAction {
@@ -36,4 +37,9 @@ interface ShowOnlyLikedImagesAction {
     payload: any[]
 }
 
-export type ImagesAction = FetchImagesAction | FetchImagesSuccessAction | FetchImagesErrorAction | FilterImagesAction | ShowOnlyLikedImagesAction
+interface ReturnImagesAction {
+    type: ImagesActionTypes.RETURN_IMAGES,
+    payload: any[]
+}
+
+export type ImagesAction = FetchImagesAction | FetchImagesSuccessAction | FetchImagesErrorAction | FilterImagesAction | ShowOnlyLikedImagesAction | ReturnImagesAction
