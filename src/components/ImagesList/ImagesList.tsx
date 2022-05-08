@@ -5,6 +5,7 @@ import { fetchImages } from '../../store/action-creators/images';
 import { Image } from '../../types/oneImage';
 import OneCard from '../OneCard/OneCard';
 import s from './ImagesList.module.css';
+import { Alert, Box, CircularProgress } from '@mui/material';
 
 const ImagesList: FC = () => {
     const dispatch = useAppDispatch()
@@ -16,6 +17,12 @@ const ImagesList: FC = () => {
 
     return (
         <div className={s.wrapper}>
+            {loading && 
+                <Box sx={{ display: 'flex' }}>
+                    <CircularProgress />
+                </Box>
+            }
+            {error && <Alert severity="error">{error}</Alert>}
             {images.map((image: Image) =>
                 <OneCard key={image.id} image={image} />
             )}
