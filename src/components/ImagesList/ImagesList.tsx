@@ -11,7 +11,7 @@ import { DataContext } from '../../context';
 const ImagesList: FC = () => {
     const dispatch = useAppDispatch()
     const {images, error, loading} = useTypedSelector(state => state.images)
-    const {setShowLiked, showLiked} = useContext(DataContext)
+    const {showLiked} = useContext(DataContext)
 
     // стейт для лайнутых картинок
     const [likedImages, setLikedImages] = useState<any[]>([])
@@ -24,7 +24,18 @@ const ImagesList: FC = () => {
 
     // по клику - удаляем картинку
     const handleDelete = (current: Image) => {
+        setLikedImages(likedImages.filter((liked: Image) => liked.id !== current.id))
         dispatch<any>(filterImages(images.filter(image => image.id !== current.id)))
+        // если выведены только лайкнутые
+        if (showLiked) {
+            setLikedImages(likedImages.filter((liked: Image) => liked.id !== current.id))
+            images.map(image => {
+                if (image.id === current.id) {
+                    // снимаем лайк в основном массиве
+                    image.like = !image.like
+                }
+            })
+        }
     }
 
     // показать только лайкнутые/все

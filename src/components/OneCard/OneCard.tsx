@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -7,6 +7,7 @@ import { CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material'
 import { Image } from '../../types/oneImage';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { DataContext } from '../../context';
 
 interface CardProps {
     image: Image,
@@ -16,6 +17,8 @@ interface CardProps {
 }
 
 const OneCard: FC<CardProps> = ({image, handleDelete, likedImages, setLikedImages}) => {
+    const {showLiked} = useContext(DataContext)
+
     // для подсвечивания иконки при клике
     const [like, setLike] = useState(false)
     // по клику ставим лайк
@@ -58,16 +61,23 @@ const OneCard: FC<CardProps> = ({image, handleDelete, likedImages, setLikedImage
                     {image.id}
                     </Typography>
                 </CardContent>
-                <CardActions>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon onClick={() => handleLike(image)} color={image.like ? 'success' : 'primary'} />
-                    </IconButton>
-                    <Tooltip title="Delete image?" placement="right-start">
+                {!showLiked &&
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                            <FavoriteIcon onClick={() => handleLike(image)} color={image.like ? 'success' : 'primary'} />
+                        </IconButton>
+                        <Tooltip title="Delete image?" placement="right-start">
+                            <IconButton>
+                                <DeleteIcon onClick={() => handleDelete(image)} />
+                            </IconButton>
+                        </Tooltip>
+                    </CardActions>
+                    }
+                    <Tooltip title="Delete from select?" placement="right-start">
                         <IconButton>
                             <DeleteIcon onClick={() => handleDelete(image)} />
                         </IconButton>
                     </Tooltip>
-                </CardActions>
             </CardActionArea>
         </Card>
     );
