@@ -1,7 +1,9 @@
+import { Image } from "./oneImage"
+
 export interface ImagesState {
-    images: any[],
-    loading: boolean,
-    error: null | string
+    images: Image[],
+    loading?: boolean,
+    error?: null | string
 }
 
 export enum ImagesActionTypes {
@@ -19,7 +21,7 @@ interface FetchImagesAction {
 
 interface FetchImagesSuccessAction {
     type: ImagesActionTypes.FETCH_IMAGES_SUCCESS,
-    payload: any[]
+    payload: Image[]
 }
 
 interface FetchImagesErrorAction {
@@ -29,17 +31,17 @@ interface FetchImagesErrorAction {
 
 interface FilterImagesAction {
     type: ImagesActionTypes.FILTER_IMAGES,
-    payload: any[]
+    payload: Image[]
 }
 
 interface ShowOnlyLikedImagesAction {
     type: ImagesActionTypes.SHOW_ONLY_LIKED_IMAGES,
-    payload: any[]
+    payload: Image[]
 }
 
 interface ReturnImagesAction {
     type: ImagesActionTypes.RETURN_IMAGES,
-    payload: any[]
+    payload: Image[]
 }
 
 export type ImagesAction = FetchImagesAction | FetchImagesSuccessAction | FetchImagesErrorAction | FilterImagesAction | ShowOnlyLikedImagesAction | ReturnImagesAction

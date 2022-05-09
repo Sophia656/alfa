@@ -16,11 +16,11 @@ export const imagesReducer = (state = initialState, action: ImagesAction): Image
         case ImagesActionTypes.FETCH_IMAGES_ERROR:
             return {loading: false, error: action.payload, images: []}
         case ImagesActionTypes.FILTER_IMAGES:
-            return {loading: false, error: null, images: action.payload}
+            return {images: action.payload}
         case ImagesActionTypes.SHOW_ONLY_LIKED_IMAGES:
-            return {loading: false, error: null, images: action.payload}
+            return {images: action.payload}
         case ImagesActionTypes.RETURN_IMAGES:
-            return {loading: false, error: null, images: action.payload}
+            return {images: action.payload}
         default:
             return state
     }

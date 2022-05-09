@@ -5,7 +5,7 @@ import { DataContext } from './context';
 
 const App: FC = () => {
   // показать только лайкнутые/все
-  const [showLiked, setShowLiked] = useState(false)
+  const [showLiked, setShowLiked] = useState<boolean>(false)
 
   return (
     <DataContext.Provider

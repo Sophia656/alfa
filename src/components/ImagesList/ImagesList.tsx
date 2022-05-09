@@ -2,11 +2,11 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { fetchImages, filterImages, returnImages, showOnlyLikedImages } from '../../store/action-creators/images';
-import { Image } from '../../types/oneImage';
 import OneCard from '../OneCard/OneCard';
 import s from './ImagesList.module.css';
 import { Alert, Box, CircularProgress } from '@mui/material';
 import { DataContext } from '../../context';
+import { Image } from '../../types/oneImage';
 
 const ImagesList: FC = () => {
     const dispatch = useAppDispatch()
@@ -14,9 +14,9 @@ const ImagesList: FC = () => {
     const {showLiked} = useContext(DataContext)
 
     // стейт для лайнутых картинок
-    const [likedImages, setLikedImages] = useState<any[]>([])
+    const [likedImages, setLikedImages] = useState<Image[]>([])
     // чтобы при возврате на все картики показывались лайкнутые
-    const [currentImages, setCurrentImages] = useState<any[]>([])
+    const [currentImages, setCurrentImages] = useState<Image[]>([])
 
     useEffect(() => {
         dispatch<any>(fetchImages())
@@ -25,7 +25,7 @@ const ImagesList: FC = () => {
     // по клику - удаляем картинку
     const handleDelete = (current: Image) => {
         setLikedImages(likedImages.filter((liked: Image) => liked.id !== current.id))
-        dispatch<any>(filterImages(images.filter(image => image.id !== current.id)))
+        dispatch<any>(filterImages(images.filter((image: Image) => image.id !== current.id))) // any - отводка ts-жалобы от "@types/react"
         // если выведены только лайкнутые
         if (showLiked) {
             setLikedImages(likedImages.filter((liked: Image) => liked.id !== current.id))
